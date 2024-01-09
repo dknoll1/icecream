@@ -10,6 +10,14 @@
 <body>
     <h1>Thank you for your order!</h1>
     <?php
+        //turn on error reporting
+        ini_set('display_errors', 1);
+        error_reporting(E_ALL);
+
+        //define constants
+        define('PRICE_PER_SCOOP', 2.50);
+        define('SALES_TAX_RATE', 0.11);
+
         echo "<pre>";
         var_dump($_POST);
         echo "</pre>";
@@ -19,10 +27,17 @@
         $flavorString = implode(", ", $flavors);
         $cone = $_POST['cone'];
 
+        //calculate total due
+        $subtotal = PRICE_PER_SCOOP * $scoops;
+        $tax = $subtotal * SALES_TAX_RATE;
+        $total = $subtotal + $tax;
+
         // print a summary
         echo "<p>$scoops scoops</p>";
         echo "<p>$cone</p>";
         echo "<p>Flavors: $flavorString</p>";
+
+        echo "<p>total due: $total</p>";
     ?>
 </body>
 </html>
